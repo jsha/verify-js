@@ -1,0 +1,32 @@
+<html>
+<head>
+<!-- This small shim page always gets reloaded, and deals with versioning.
+     The larger payload file can be long-term cached or even saved in
+     localStorage with a little extra code. -->
+<meta http-equiv="Expires" content="-1">
+<script>
+// Generate new signatures using the private key held offline.
+// Demo key is in signer.js.
+var signature = '["Ei7W7v9WZkfu2IuMJGx3ZnDeF8FItkV5w5zCx6xWbga","4rUaQNumVMSh3HfiRIBGR8l_bJGl3XgCoXXG=QFjy6T"]';
+var payloadFilename = "payload.3.js";
+
+function fetch(url, callback) {
+  xmlhttp = new XMLHttpRequest();
+  xmlhttp.onreadystatechange = function() {
+    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+      callback(xmlhttp.responseText);
+    }
+  }
+  xmlhttp.open("GET", url, true);
+  xmlhttp.send();
+}
+
+fetch(payloadFilename, function(content) {
+  parent.postMessage(signature + "|" + content, "*");
+});
+</script>
+</head>
+<body>
+provide.html
+</body>
+</html>
