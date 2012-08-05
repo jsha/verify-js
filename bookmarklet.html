@@ -31,8 +31,8 @@ window.addEventListener('load', function() {
 function updateLink() {
   var textarea = e('text');
   var value = textarea.value;
-  value = value.replace(/%/g, '%25').replace(/\n/g, '%0A').replace(/#/g, '%23');
-  e('bookmarkLink').href = value;
+
+  e('bookmarkLink').href = 'data:text/html;charset=utf-8,' + encodeURIComponent(value);
 }
 
 function scold() {
@@ -102,14 +102,16 @@ It's live, so if you want to make tweaks and try them out, just edit inline and 
 above onto your bookmarks toolbar.  See also the <a href=signer.html>signer</a>
 and <a href=provide.html>provider</a> pages.
 
-<p>Feedback welcome. I'm @<a href=https://twitter.com/j4cob>j4cob</a> on Twitter.
+<p>Feedback welcome. I'm @<a href=https://twitter.com/j4cob>j4cob</a> on
+Twitter.  Or comment on <a href=https://github.com/jsha/verify-js>github</a>.
 
 <p>
 
 <textarea id="text" style="width:100%; height:400px">
-data:text/html;charset=utf-8,<head></head><body><script>
+<head></head><body><script>
 (function() {
-
+// This content is released under the MIT license
+// (http://opensource.org/licenses/MIT).
 var config = {
   providerOrigin: 'https://jacob.hoffman-andrews.com',
   // This iframe is expected to call
@@ -154,6 +156,8 @@ window.addEventListener('load', function() {
 }, false);
 
 
+// End MIT-licensed code.  Code below is public domain (bigint and whirlpool) or
+// AGPL (elliptic.js from Cryptocat).
 
 ////////////////////////////////////////////////////////////////////////////////////////
 // Big Integer Library v. 5.4
@@ -1938,6 +1942,9 @@ function mont_(x,y,n,np) {
 
 
 
+// elliptic.js from cryptocat:
+// https://github.com/kaepora/cryptocat/blob/master/src/common/js/elliptic.js
+// License is AGPL.
 
 // curve25519
 
@@ -2347,9 +2354,6 @@ function ecDH(priv, pub) {
         return bigInt2str(scalarMult(priv, pub), 64);
 	}
 }
-
-window.ecdsaSign = ecdsaSign;
-window.ecdsaVerify = ecdsaVerify;
 })();
 </script>
 </textarea>
